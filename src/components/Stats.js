@@ -4,9 +4,12 @@ import "./Stats.css";
 import axios from "axios";
 
 function Stats() {
+<<<<<<< HEAD
   // const APIKEY = "sandbox_c0c713748v6u6kubf4m0";
   //  const BASE_URL = "https://finnhub.io/api/v1/quote";
 
+=======
+>>>>>>> 67e89cc30bc8f0c292cdb8d2210de7cc0ecb46d4
   const [stockData, setStockData] = useState([]);
   const [myStocks, setMyStocks] = useState([
     {
@@ -16,6 +19,8 @@ function Stats() {
       c: "34",
     },
   ]);
+
+  const tempStockData = [];
 
   const tempStockData = [];
 
