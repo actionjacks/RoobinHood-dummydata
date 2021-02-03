@@ -3,27 +3,22 @@ import "./Stats.css";
 import axios from "axios";
 
 function Stats() {
+  const APIKEY = "&token=c0c713748v6u6kubf4lg";
+  const BASE_URL = "https://finnhub.io/api/v1/quote?symbol=";
+
   const [stockData, setStockData] = useState([]);
 
-  const tempStockData = [];
-
   const getStocksData = (stock) => {
-    const APIKEY = "&token=c0c713748v6u6kubf4lg";
-    const BASE_URL = "https://finnhub.io/api/v1/quote?symbol=";
-    axios
+    return axios
       .get(`${BASE_URL}${stock}${APIKEY}`)
-
       .then((item) => {
-        tempStockData.push({
-          name: stock,
-          ...item.data,
-        });
-        setStockData(tempStockData);
+        console.log(item);
       })
       .catch((error) => {
         console.error("Error", error.message);
       });
   };
+
   useEffect(() => {
     const stocksList = [
       "AAPL",
@@ -34,10 +29,24 @@ function Stats() {
       "UBER",
       "DIS",
       "SBUX",
-      "CDR",
     ];
+
+    let tempStockData = [];
+    let promises = [];
     stocksList.map((stock) => {
-      getStocksData(stock);
+      promises.push(
+        getStocksData(stock).then((res) => {
+          console.log(res);
+          tempStockData.push({
+            name: stock,
+            ...res.data,
+          });
+        })
+      );
+    });
+    Promise.all(promises).then(() => {
+      setStockData(tempStockData);
+      console.log(tempStockData);
     });
   }, []);
 
