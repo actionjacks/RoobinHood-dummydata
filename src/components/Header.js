@@ -1,5 +1,5 @@
 import React from "react";
-import Logo from "./logo__robinhood.png";
+import Logo from "../images/logo__robinhood.png";
 import SearchIcon from "@material-ui/icons/Search";
 import "./Header.css";
 
