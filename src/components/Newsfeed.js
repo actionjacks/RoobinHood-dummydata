@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import LineGraph from "./LineGraph";
 import "./Newsfeed.css";
 import TimeLine from "./TimeLine";
@@ -9,16 +9,16 @@ import FlashOnIcon from "@material-ui/icons/FlashOn";
 
 function Newsfeed() {
   const [popularTopics, setTopics] = useState([
-    "Technology",
-    "Top Movies",
-    "Upcoming Earnings",
-    "Crypto",
-    "Cannabis",
+    "Cyberpunk 2077",
+    "JavaScript",
+    "C##",
+    "Python",
+    "The Pirate Bay",
     "Healthcare Supplies",
-    "Index ETFs",
-    "Technology",
-    "China",
-    "Pharma",
+    "Bitcoin",
+    "Bankruptcy in Poland",
+    "Filmweb",
+    "COVID",
   ]);
 
   const [seed, setSeed] = useState("");
@@ -46,8 +46,8 @@ function Newsfeed() {
         </div>
         <div className="newsfeed__market__section">
           <div className="newsfeed__market__box">
-            <p> Markets Closed</p>
-            <h1> Happy Thanksgiving</h1>
+            <p>Markets Closed</p>
+            <h4>come back tomorrow</h4>
           </div>
         </div>
         <div className="newsfeed__popularlists__section">

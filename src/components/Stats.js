@@ -13,83 +13,49 @@ function Stats() {
       c: "34",
     },
   ]);
-  const tempStockData = [];
+  const APIKEY = "&token=c0c713748v6u6kubf4lg";
+  const BASE_URL = "https://finnhub.io/api/v1/quote?symbol=";
+
+  useEffect(() => {
+    const stockList = [
+      "AAPL",
+      "MSFT",
+      "TSLA",
+      "FB",
+      "CDR",
+      "BABA",
+      "UBER",
+      "DIS",
+      "SBUX",
+    ];
+    let tempStockData = [];
+    let promises = [];
+    stockList.map((stock) => {
+      promises.push(
+        getStocksData(stock).then((res) => {
+          const resData = res;
+          tempStockData.push({
+            name: stock,
+            ...resData,
+          });
+        })
+      );
+    });
+    Promise.all(promises).then(() => {
+      setStockData(tempStockData);
+    });
+  }, []);
 
   const getStocksData = (stock) => {
-    const APIKEY = "&token=c0c713748v6u6kubf4lg";
-    const BASE_URL = "https://finnhub.io/api/v1/quote?symbol=";
-    axios
+    return axios
       .get(`${BASE_URL}${stock}${APIKEY}`)
-
       .then((item) => {
-        tempStockData.push({
-          name: stock,
-          ...item.data,
-        });
-        setStockData(tempStockData);
+        return item.data;
       })
       .catch((error) => {
         console.error("Error", error.message);
       });
   };
-  useEffect(() => {
-    const stocksList = [
-      "AAPL",
-      "MSFT",
-      "TSLA",
-      "FB",
-      "BABA",
-      "UBER",
-      "DIS",
-      "SBUX",
-      "CDR",
-    ];
-    stocksList.map((stock) => {
-      getStocksData(stock);
-    });
-  }, []);
-
-  // const getStocksData = (stock) => {
-  //   return axios
-  //     .get(`${BASE_URL}${stock}${APIKEY}`)
-  //     .then((item) => {
-  //       console.log(item);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error", error.message);
-  //     });
-  // };
-
-  // useEffect(() => {
-  //   const stockList = [
-  //     "AAPL",
-  //     "MSFT",
-  //     "TSLA",
-  //     "FB",
-  //     "CDR",
-  //     "BABA",
-  //     "UBER",
-  //     "DIS",
-  //     "SBUX",
-  //   ];
-  //   let tempStockData = [];
-  //   let promises = [];
-  //   stockList.map((stock) => {
-  //     promises.push(
-  //       getStocksData(stock)
-  //       .then((res) => {
-  //         tempStockData.push({
-  //           name: stock,
-  //           ...res?.data,
-  //         });
-  //       })
-  //     );
-  //   });
-  //   Promise.all(promises).then(() => {
-  //     setStockData(tempStockData);
-  //     console.log(tempStockData);
-  //   });
-  // }, []);
 
   return (
     <div className="stats">
@@ -115,7 +81,6 @@ function Stats() {
         </div>
         <div className="stats__content">
           <div className="stats__rows">
-            {console.log(stockData)}
             {stockData.map((stock) => (
               <StatsRow
                 key={stock?.name}
