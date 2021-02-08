@@ -1,2 +1,2 @@
 # RoobinHood-dummydata
-#https://finnhub.io/api/v1/
+#data on share prices are downloaded https://finnhub.io/api/v1/
